@@ -81,16 +81,24 @@ class MemoryDataStorage implements ConversationDataStorage {
     final message = ConversationMessage(
       id: nextId.toString(),
       message: messageText,
-      modified: DateTime.now().microsecondsSinceEpoch,
+      modified: DateTime.now().millisecondsSinceEpoch,
       sender: sender,
     );
 
     //Send new message to stream
     _getStreamController(conversationId).sink.add(message);
-    messages.add(message);
 
     ///Store new message
+    messages.add(message);
     storeConversationMessages(conversationId, messages);
+
+    ///Update latest message
+    final currentConversation =
+        _conversations.firstWhere((element) => element.id == conversationId);
+    updateConversation(currentConversation.copyWith(
+      lastMessage: messageText,
+      modified: message.modified,
+    ));
 
     return message;
   }

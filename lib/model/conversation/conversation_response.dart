@@ -32,4 +32,20 @@ class Conversation extends Equatable {
   @override
   String toString() =>
       'Conversation(id:$id, topic:$topic, lastMessage:$lastMessage, modified:$modified)';
+
+  Conversation copyWith({
+    String? id,
+    String? topic,
+    String? lastMessage,
+    int? modified,
+    List<String>? members,
+  }) {
+    return Conversation(
+      id: id ?? this.id,
+      topic: topic ?? this.topic,
+      lastMessage: lastMessage ?? this.lastMessage,
+      modified: modified ?? this.modified,
+      members: members ?? this.members,
+    );
+  }
 }

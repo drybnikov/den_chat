@@ -42,8 +42,10 @@ extension GetItInjectableX on _i1.GetIt {
               gh<_i6.RestClientPublic>(),
               gh<_i4.ConversationDataStorage>(),
             ));
-    gh.factory<_i9.ConversationBloc>(
-        () => _i9.ConversationBloc(gh<_i7.ConversationRepository>()));
+    gh.factory<_i9.ConversationBloc>(() => _i9.ConversationBloc(
+          gh<_i7.ConversationRepository>(),
+          gh<_i4.ConversationDataStorage>(),
+        ));
     gh.factory<_i10.ConversationDetailBloc>(() => _i10.ConversationDetailBloc(
           gh<_i7.ConversationRepository>(),
           gh<_i4.ConversationDataStorage>(),

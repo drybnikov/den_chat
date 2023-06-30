@@ -116,7 +116,7 @@ class _MembersListWidget extends StatelessWidget {
 
 class _ModifiedDate extends StatelessWidget {
   late final String _date;
-  final DateFormat formatter = DateFormat('dd MMM');
+  final DateFormat formatter = DateFormat('dd MMM HH:mm');
 
   _ModifiedDate({required int modified}) : super() {
     final dateTime = DateTime.fromMicrosecondsSinceEpoch(modified * 1000);

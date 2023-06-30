@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:den_chat/model/conversation/conversation_response.dart';
+import 'package:den_chat/repository/conversation_data_storage.dart';
 import 'package:den_chat/repository/conversation_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:fimber/fimber.dart';
@@ -17,9 +18,8 @@ class ConversationEvent with _$ConversationEvent {
   const factory ConversationEvent.fetchLastConversations() =
       _fetchConversations;
 
-  const factory ConversationEvent.fetchDetails(String id) = _fetchDetails;
-
-  const factory ConversationEvent.sendMessage(String message) = _sendMessage;
+  const factory ConversationEvent.updateConversation(
+      Conversation conversation) = _updateConversation;
 }
 
 @Freezed(toStringOverride: false, copyWith: false)
@@ -42,11 +42,25 @@ class ConversationState with _$ConversationState {
 @injectable
 class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
   final ConversationRepository _conversationRepository;
+  final ConversationDataStorage _conversationDataStorage;
 
-  ConversationBloc(this._conversationRepository) : super(const _loading()) {
+  StreamSubscription? _conversationsSubscription;
+
+  ConversationBloc(this._conversationRepository, this._conversationDataStorage)
+      : super(const _loading()) {
     on<_fetchConversations>(_onFetchConversations);
-    on<_fetchDetails>(_onFetchDetails);
-    on<_sendMessage>(_onSendMessage);
+    on<_updateConversation>(_onUpdateConversation);
+
+    _conversationsSubscription =
+        _conversationDataStorage.conversationsStream().listen((conversation) {
+      add(_updateConversation(conversation));
+    });
+  }
+
+  @override
+  close() {
+    _conversationsSubscription?.cancel();
+    return super.close();
   }
 
   FutureOr<void> _onFetchConversations(_fetchConversations event, emit) async {
@@ -73,7 +87,19 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
     }
   }
 
-  FutureOr<void> _onFetchDetails(_fetchDetails event, emit) async {}
+  FutureOr<void> _onUpdateConversation(_updateConversation event, emit) async {
+    final conversations = state.conversations.toList();
+    final conversation = event.conversation;
 
-  FutureOr<void> _onSendMessage(_sendMessage event, emit) async {}
+    final index = conversations.indexWhere(
+        (element) => element.id == conversation.id && element != conversation);
+
+    if (index != -1) {
+      conversations[index] = conversation;
+    } else {
+      conversations.add(conversation);
+    }
+
+    emit(_initialized(conversations: conversations));
+  }
 }

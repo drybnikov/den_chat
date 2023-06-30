@@ -19,44 +19,38 @@ mixin _$ConversationEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() fetchLastConversations,
-    required TResult Function(String id) fetchDetails,
-    required TResult Function(String message) sendMessage,
+    required TResult Function(Conversation conversation) updateConversation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? fetchLastConversations,
-    TResult? Function(String id)? fetchDetails,
-    TResult? Function(String message)? sendMessage,
+    TResult? Function(Conversation conversation)? updateConversation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetchLastConversations,
-    TResult Function(String id)? fetchDetails,
-    TResult Function(String message)? sendMessage,
+    TResult Function(Conversation conversation)? updateConversation,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_fetchConversations value) fetchLastConversations,
-    required TResult Function(_fetchDetails value) fetchDetails,
-    required TResult Function(_sendMessage value) sendMessage,
+    required TResult Function(_updateConversation value) updateConversation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_fetchConversations value)? fetchLastConversations,
-    TResult? Function(_fetchDetails value)? fetchDetails,
-    TResult? Function(_sendMessage value)? sendMessage,
+    TResult? Function(_updateConversation value)? updateConversation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_fetchConversations value)? fetchLastConversations,
-    TResult Function(_fetchDetails value)? fetchDetails,
-    TResult Function(_sendMessage value)? sendMessage,
+    TResult Function(_updateConversation value)? updateConversation,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -85,8 +79,7 @@ class _$_fetchConversations extends _fetchConversations {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() fetchLastConversations,
-    required TResult Function(String id) fetchDetails,
-    required TResult Function(String message) sendMessage,
+    required TResult Function(Conversation conversation) updateConversation,
   }) {
     return fetchLastConversations();
   }
@@ -95,8 +88,7 @@ class _$_fetchConversations extends _fetchConversations {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? fetchLastConversations,
-    TResult? Function(String id)? fetchDetails,
-    TResult? Function(String message)? sendMessage,
+    TResult? Function(Conversation conversation)? updateConversation,
   }) {
     return fetchLastConversations?.call();
   }
@@ -105,8 +97,7 @@ class _$_fetchConversations extends _fetchConversations {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetchLastConversations,
-    TResult Function(String id)? fetchDetails,
-    TResult Function(String message)? sendMessage,
+    TResult Function(Conversation conversation)? updateConversation,
     required TResult orElse(),
   }) {
     if (fetchLastConversations != null) {
@@ -119,8 +110,7 @@ class _$_fetchConversations extends _fetchConversations {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_fetchConversations value) fetchLastConversations,
-    required TResult Function(_fetchDetails value) fetchDetails,
-    required TResult Function(_sendMessage value) sendMessage,
+    required TResult Function(_updateConversation value) updateConversation,
   }) {
     return fetchLastConversations(this);
   }
@@ -129,8 +119,7 @@ class _$_fetchConversations extends _fetchConversations {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_fetchConversations value)? fetchLastConversations,
-    TResult? Function(_fetchDetails value)? fetchDetails,
-    TResult? Function(_sendMessage value)? sendMessage,
+    TResult? Function(_updateConversation value)? updateConversation,
   }) {
     return fetchLastConversations?.call(this);
   }
@@ -139,8 +128,7 @@ class _$_fetchConversations extends _fetchConversations {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_fetchConversations value)? fetchLastConversations,
-    TResult Function(_fetchDetails value)? fetchDetails,
-    TResult Function(_sendMessage value)? sendMessage,
+    TResult Function(_updateConversation value)? updateConversation,
     required TResult orElse(),
   }) {
     if (fetchLastConversations != null) {
@@ -157,58 +145,56 @@ abstract class _fetchConversations extends ConversationEvent {
 
 /// @nodoc
 
-class _$_fetchDetails extends _fetchDetails {
-  const _$_fetchDetails(this.id) : super._();
+class _$_updateConversation extends _updateConversation {
+  const _$_updateConversation(this.conversation) : super._();
 
   @override
-  final String id;
+  final Conversation conversation;
 
   @override
   String toString() {
-    return 'ConversationEvent.fetchDetails(id: $id)';
+    return 'ConversationEvent.updateConversation(conversation: $conversation)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_fetchDetails &&
-            (identical(other.id, id) || other.id == id));
+            other is _$_updateConversation &&
+            (identical(other.conversation, conversation) ||
+                other.conversation == conversation));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id);
+  int get hashCode => Object.hash(runtimeType, conversation);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() fetchLastConversations,
-    required TResult Function(String id) fetchDetails,
-    required TResult Function(String message) sendMessage,
+    required TResult Function(Conversation conversation) updateConversation,
   }) {
-    return fetchDetails(id);
+    return updateConversation(conversation);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? fetchLastConversations,
-    TResult? Function(String id)? fetchDetails,
-    TResult? Function(String message)? sendMessage,
+    TResult? Function(Conversation conversation)? updateConversation,
   }) {
-    return fetchDetails?.call(id);
+    return updateConversation?.call(conversation);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetchLastConversations,
-    TResult Function(String id)? fetchDetails,
-    TResult Function(String message)? sendMessage,
+    TResult Function(Conversation conversation)? updateConversation,
     required TResult orElse(),
   }) {
-    if (fetchDetails != null) {
-      return fetchDetails(id);
+    if (updateConversation != null) {
+      return updateConversation(conversation);
     }
     return orElse();
   }
@@ -217,142 +203,40 @@ class _$_fetchDetails extends _fetchDetails {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_fetchConversations value) fetchLastConversations,
-    required TResult Function(_fetchDetails value) fetchDetails,
-    required TResult Function(_sendMessage value) sendMessage,
+    required TResult Function(_updateConversation value) updateConversation,
   }) {
-    return fetchDetails(this);
+    return updateConversation(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_fetchConversations value)? fetchLastConversations,
-    TResult? Function(_fetchDetails value)? fetchDetails,
-    TResult? Function(_sendMessage value)? sendMessage,
+    TResult? Function(_updateConversation value)? updateConversation,
   }) {
-    return fetchDetails?.call(this);
+    return updateConversation?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_fetchConversations value)? fetchLastConversations,
-    TResult Function(_fetchDetails value)? fetchDetails,
-    TResult Function(_sendMessage value)? sendMessage,
+    TResult Function(_updateConversation value)? updateConversation,
     required TResult orElse(),
   }) {
-    if (fetchDetails != null) {
-      return fetchDetails(this);
+    if (updateConversation != null) {
+      return updateConversation(this);
     }
     return orElse();
   }
 }
 
-abstract class _fetchDetails extends ConversationEvent {
-  const factory _fetchDetails(final String id) = _$_fetchDetails;
-  const _fetchDetails._() : super._();
+abstract class _updateConversation extends ConversationEvent {
+  const factory _updateConversation(final Conversation conversation) =
+      _$_updateConversation;
+  const _updateConversation._() : super._();
 
-  String get id;
-}
-
-/// @nodoc
-
-class _$_sendMessage extends _sendMessage {
-  const _$_sendMessage(this.message) : super._();
-
-  @override
-  final String message;
-
-  @override
-  String toString() {
-    return 'ConversationEvent.sendMessage(message: $message)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_sendMessage &&
-            (identical(other.message, message) || other.message == message));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, message);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() fetchLastConversations,
-    required TResult Function(String id) fetchDetails,
-    required TResult Function(String message) sendMessage,
-  }) {
-    return sendMessage(message);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? fetchLastConversations,
-    TResult? Function(String id)? fetchDetails,
-    TResult? Function(String message)? sendMessage,
-  }) {
-    return sendMessage?.call(message);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? fetchLastConversations,
-    TResult Function(String id)? fetchDetails,
-    TResult Function(String message)? sendMessage,
-    required TResult orElse(),
-  }) {
-    if (sendMessage != null) {
-      return sendMessage(message);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_fetchConversations value) fetchLastConversations,
-    required TResult Function(_fetchDetails value) fetchDetails,
-    required TResult Function(_sendMessage value) sendMessage,
-  }) {
-    return sendMessage(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_fetchConversations value)? fetchLastConversations,
-    TResult? Function(_fetchDetails value)? fetchDetails,
-    TResult? Function(_sendMessage value)? sendMessage,
-  }) {
-    return sendMessage?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_fetchConversations value)? fetchLastConversations,
-    TResult Function(_fetchDetails value)? fetchDetails,
-    TResult Function(_sendMessage value)? sendMessage,
-    required TResult orElse(),
-  }) {
-    if (sendMessage != null) {
-      return sendMessage(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _sendMessage extends ConversationEvent {
-  const factory _sendMessage(final String message) = _$_sendMessage;
-  const _sendMessage._() : super._();
-
-  String get message;
+  Conversation get conversation;
 }
 
 /// @nodoc
