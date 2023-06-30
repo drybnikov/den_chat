@@ -1,27 +1,86 @@
 import 'package:den_chat/model/conversation/conversation_message_response.dart';
+import 'package:fimber/fimber.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 
 import 'member_avatar_widget.dart';
 
-class ConversationMessagesWidget extends StatelessWidget {
+const messageHeight = 80.0;
+
+class ConversationMessagesWidget extends StatefulWidget {
   final List<ConversationMessage> messages;
 
-  const ConversationMessagesWidget({Key? key, required this.messages})
-      : super(key: key);
+  const ConversationMessagesWidget(this.messages, {Key? key}) : super(key: key);
+
+  @override
+  State<ConversationMessagesWidget> createState() =>
+      _ConversationMessagesWidgetState();
+}
+
+class _ConversationMessagesWidgetState
+    extends State<ConversationMessagesWidget> {
+  late final AutoScrollController controller;
+
+  @override
+  void initState() {
+    controller = AutoScrollController(
+      keepScrollOffset: true,
+      initialScrollOffset: _getInitialOffset(),
+      suggestedRowHeight: messageHeight,
+      viewportBoundaryGetter: () =>
+          Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
+      axis: Axis.vertical,
+    );
+    Fimber.d(
+        'initState initialScrollOffset: ${controller.initialScrollOffset}');
+
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant ConversationMessagesWidget oldWidget) {
+    Fimber.d(
+        'didUpdateWidget initialScrollOffset: ${controller.initialScrollOffset}');
+    if (widget.messages.length > oldWidget.messages.length) {
+      controller.scrollToIndex(widget.messages.length,
+          duration: const Duration(seconds: 1));
+    }
+
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  double _getInitialOffset() {
+    final index = widget.messages.length;
+
+    return index * messageHeight;
+  }
 
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
+      physics: const ClampingScrollPhysics(),
+      controller: controller,
       slivers: <Widget>[
         SliverList(
           delegate: SliverChildBuilderDelegate(
             (BuildContext context, int index) {
-              final listItem = messages[index];
+              final listItem = widget.messages[index];
+              Fimber.d('Build index: $index, listItem: ${listItem.message}');
 
-              return _MessageListItem(listItem: listItem);
+              return AutoScrollTag(
+                  index: index,
+                  key: ValueKey(index),
+                  controller: controller,
+                  child: _MessageListItem(listItem: listItem));
             },
-            childCount: messages.length,
+            childCount: widget.messages.length,
           ),
         ),
       ],
@@ -45,29 +104,30 @@ class _MessageListItem extends StatelessWidget {
         children: [
           MemberAvatar(member: listItem.sender),
           Expanded(
-            child: Card(
-              elevation: 10,
-              margin: const EdgeInsets.all(8),
-              child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      listItem.message,
-                      maxLines: 5,
-                      style: Theme.of(context).textTheme.caption,
-                    ),
-                    const SizedBox(height: 4),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: _ModifiedDate(modified: listItem.modified),
-                    ),
-                  ],
+              flex: 5,
+              child: Card(
+                elevation: 10,
+                margin: const EdgeInsets.all(8),
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        listItem.message,
+                        maxLines: 5,
+                        style: Theme.of(context).textTheme.caption,
+                      ),
+                      const SizedBox(height: 4),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: _ModifiedDate(modified: listItem.modified),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              )),
+          const Expanded(child: SizedBox(width: 10)),
         ],
       ),
     );

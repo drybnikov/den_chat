@@ -20,18 +20,21 @@ mixin _$ConversationDetailEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String id) fetchDetails,
     required TResult Function(String message) sendMessage,
+    required TResult Function(ConversationMessage message) addMessage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String id)? fetchDetails,
     TResult? Function(String message)? sendMessage,
+    TResult? Function(ConversationMessage message)? addMessage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String id)? fetchDetails,
     TResult Function(String message)? sendMessage,
+    TResult Function(ConversationMessage message)? addMessage,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,21 @@ mixin _$ConversationDetailEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_fetchDetails value) fetchDetails,
     required TResult Function(_sendMessage value) sendMessage,
+    required TResult Function(_addMessage value) addMessage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_fetchDetails value)? fetchDetails,
     TResult? Function(_sendMessage value)? sendMessage,
+    TResult? Function(_addMessage value)? addMessage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_fetchDetails value)? fetchDetails,
     TResult Function(_sendMessage value)? sendMessage,
+    TResult Function(_addMessage value)? addMessage,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -85,6 +91,7 @@ class _$_fetchDetails extends _fetchDetails {
   TResult when<TResult extends Object?>({
     required TResult Function(String id) fetchDetails,
     required TResult Function(String message) sendMessage,
+    required TResult Function(ConversationMessage message) addMessage,
   }) {
     return fetchDetails(id);
   }
@@ -94,6 +101,7 @@ class _$_fetchDetails extends _fetchDetails {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String id)? fetchDetails,
     TResult? Function(String message)? sendMessage,
+    TResult? Function(ConversationMessage message)? addMessage,
   }) {
     return fetchDetails?.call(id);
   }
@@ -103,6 +111,7 @@ class _$_fetchDetails extends _fetchDetails {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String id)? fetchDetails,
     TResult Function(String message)? sendMessage,
+    TResult Function(ConversationMessage message)? addMessage,
     required TResult orElse(),
   }) {
     if (fetchDetails != null) {
@@ -116,6 +125,7 @@ class _$_fetchDetails extends _fetchDetails {
   TResult map<TResult extends Object?>({
     required TResult Function(_fetchDetails value) fetchDetails,
     required TResult Function(_sendMessage value) sendMessage,
+    required TResult Function(_addMessage value) addMessage,
   }) {
     return fetchDetails(this);
   }
@@ -125,6 +135,7 @@ class _$_fetchDetails extends _fetchDetails {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_fetchDetails value)? fetchDetails,
     TResult? Function(_sendMessage value)? sendMessage,
+    TResult? Function(_addMessage value)? addMessage,
   }) {
     return fetchDetails?.call(this);
   }
@@ -134,6 +145,7 @@ class _$_fetchDetails extends _fetchDetails {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_fetchDetails value)? fetchDetails,
     TResult Function(_sendMessage value)? sendMessage,
+    TResult Function(_addMessage value)? addMessage,
     required TResult orElse(),
   }) {
     if (fetchDetails != null) {
@@ -179,6 +191,7 @@ class _$_sendMessage extends _sendMessage {
   TResult when<TResult extends Object?>({
     required TResult Function(String id) fetchDetails,
     required TResult Function(String message) sendMessage,
+    required TResult Function(ConversationMessage message) addMessage,
   }) {
     return sendMessage(message);
   }
@@ -188,6 +201,7 @@ class _$_sendMessage extends _sendMessage {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String id)? fetchDetails,
     TResult? Function(String message)? sendMessage,
+    TResult? Function(ConversationMessage message)? addMessage,
   }) {
     return sendMessage?.call(message);
   }
@@ -197,6 +211,7 @@ class _$_sendMessage extends _sendMessage {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String id)? fetchDetails,
     TResult Function(String message)? sendMessage,
+    TResult Function(ConversationMessage message)? addMessage,
     required TResult orElse(),
   }) {
     if (sendMessage != null) {
@@ -210,6 +225,7 @@ class _$_sendMessage extends _sendMessage {
   TResult map<TResult extends Object?>({
     required TResult Function(_fetchDetails value) fetchDetails,
     required TResult Function(_sendMessage value) sendMessage,
+    required TResult Function(_addMessage value) addMessage,
   }) {
     return sendMessage(this);
   }
@@ -219,6 +235,7 @@ class _$_sendMessage extends _sendMessage {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_fetchDetails value)? fetchDetails,
     TResult? Function(_sendMessage value)? sendMessage,
+    TResult? Function(_addMessage value)? addMessage,
   }) {
     return sendMessage?.call(this);
   }
@@ -228,6 +245,7 @@ class _$_sendMessage extends _sendMessage {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_fetchDetails value)? fetchDetails,
     TResult Function(_sendMessage value)? sendMessage,
+    TResult Function(_addMessage value)? addMessage,
     required TResult orElse(),
   }) {
     if (sendMessage != null) {
@@ -245,38 +263,144 @@ abstract class _sendMessage extends ConversationDetailEvent {
 }
 
 /// @nodoc
-mixin _$ConversationDetailState {
-  List<ConversationMessage> get messages => throw _privateConstructorUsedError;
+
+class _$_addMessage extends _addMessage {
+  const _$_addMessage(this.message) : super._();
+
+  @override
+  final ConversationMessage message;
+
+  @override
+  String toString() {
+    return 'ConversationDetailEvent.addMessage(message: $message)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_addMessage &&
+            (identical(other.message, message) || other.message == message));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, message);
+
+  @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<ConversationMessage> messages) loading,
+    required TResult Function(String id) fetchDetails,
+    required TResult Function(String message) sendMessage,
+    required TResult Function(ConversationMessage message) addMessage,
+  }) {
+    return addMessage(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String id)? fetchDetails,
+    TResult? Function(String message)? sendMessage,
+    TResult? Function(ConversationMessage message)? addMessage,
+  }) {
+    return addMessage?.call(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String id)? fetchDetails,
+    TResult Function(String message)? sendMessage,
+    TResult Function(ConversationMessage message)? addMessage,
+    required TResult orElse(),
+  }) {
+    if (addMessage != null) {
+      return addMessage(message);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_fetchDetails value) fetchDetails,
+    required TResult Function(_sendMessage value) sendMessage,
+    required TResult Function(_addMessage value) addMessage,
+  }) {
+    return addMessage(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_fetchDetails value)? fetchDetails,
+    TResult? Function(_sendMessage value)? sendMessage,
+    TResult? Function(_addMessage value)? addMessage,
+  }) {
+    return addMessage?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_fetchDetails value)? fetchDetails,
+    TResult Function(_sendMessage value)? sendMessage,
+    TResult Function(_addMessage value)? addMessage,
+    required TResult orElse(),
+  }) {
+    if (addMessage != null) {
+      return addMessage(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _addMessage extends ConversationDetailEvent {
+  const factory _addMessage(final ConversationMessage message) = _$_addMessage;
+  const _addMessage._() : super._();
+
+  ConversationMessage get message;
+}
+
+/// @nodoc
+mixin _$ConversationDetailState {
+  List<ConversationMessage> get messages => throw _privateConstructorUsedError;
+  String get conversationId => throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            List<ConversationMessage> messages, String conversationId)
+        loading,
     required TResult Function(List<ConversationMessage> messages,
-            bool isSending, String? lastMessage)
+            String conversationId, bool isSending)
         initialized,
     required TResult Function(List<ConversationMessage> messages,
-            String message, String? errorCode)
+            String conversationId, String message, String? errorCode)
         error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<ConversationMessage> messages)? loading,
-    TResult? Function(List<ConversationMessage> messages, bool isSending,
-            String? lastMessage)?
+    TResult? Function(
+            List<ConversationMessage> messages, String conversationId)?
+        loading,
+    TResult? Function(List<ConversationMessage> messages, String conversationId,
+            bool isSending)?
         initialized,
-    TResult? Function(List<ConversationMessage> messages, String message,
-            String? errorCode)?
+    TResult? Function(List<ConversationMessage> messages, String conversationId,
+            String message, String? errorCode)?
         error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<ConversationMessage> messages)? loading,
-    TResult Function(List<ConversationMessage> messages, bool isSending,
-            String? lastMessage)?
+    TResult Function(List<ConversationMessage> messages, String conversationId)?
+        loading,
+    TResult Function(List<ConversationMessage> messages, String conversationId,
+            bool isSending)?
         initialized,
-    TResult Function(List<ConversationMessage> messages, String message,
-            String? errorCode)?
+    TResult Function(List<ConversationMessage> messages, String conversationId,
+            String message, String? errorCode)?
         error,
     required TResult orElse(),
   }) =>
@@ -308,7 +432,9 @@ mixin _$ConversationDetailState {
 /// @nodoc
 
 class _$_loading extends _loading {
-  const _$_loading({final List<ConversationMessage> messages = const []})
+  const _$_loading(
+      {final List<ConversationMessage> messages = const [],
+      this.conversationId = ''})
       : _messages = messages,
         super._();
 
@@ -322,59 +448,70 @@ class _$_loading extends _loading {
   }
 
   @override
+  @JsonKey()
+  final String conversationId;
+
+  @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_loading &&
-            const DeepCollectionEquality().equals(other._messages, _messages));
+            const DeepCollectionEquality().equals(other._messages, _messages) &&
+            (identical(other.conversationId, conversationId) ||
+                other.conversationId == conversationId));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_messages));
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_messages), conversationId);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<ConversationMessage> messages) loading,
+    required TResult Function(
+            List<ConversationMessage> messages, String conversationId)
+        loading,
     required TResult Function(List<ConversationMessage> messages,
-            bool isSending, String? lastMessage)
+            String conversationId, bool isSending)
         initialized,
     required TResult Function(List<ConversationMessage> messages,
-            String message, String? errorCode)
+            String conversationId, String message, String? errorCode)
         error,
   }) {
-    return loading(messages);
+    return loading(messages, conversationId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<ConversationMessage> messages)? loading,
-    TResult? Function(List<ConversationMessage> messages, bool isSending,
-            String? lastMessage)?
+    TResult? Function(
+            List<ConversationMessage> messages, String conversationId)?
+        loading,
+    TResult? Function(List<ConversationMessage> messages, String conversationId,
+            bool isSending)?
         initialized,
-    TResult? Function(List<ConversationMessage> messages, String message,
-            String? errorCode)?
+    TResult? Function(List<ConversationMessage> messages, String conversationId,
+            String message, String? errorCode)?
         error,
   }) {
-    return loading?.call(messages);
+    return loading?.call(messages, conversationId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<ConversationMessage> messages)? loading,
-    TResult Function(List<ConversationMessage> messages, bool isSending,
-            String? lastMessage)?
+    TResult Function(List<ConversationMessage> messages, String conversationId)?
+        loading,
+    TResult Function(List<ConversationMessage> messages, String conversationId,
+            bool isSending)?
         initialized,
-    TResult Function(List<ConversationMessage> messages, String message,
-            String? errorCode)?
+    TResult Function(List<ConversationMessage> messages, String conversationId,
+            String message, String? errorCode)?
         error,
     required TResult orElse(),
   }) {
     if (loading != null) {
-      return loading(messages);
+      return loading(messages, conversationId);
     }
     return orElse();
   }
@@ -415,12 +552,15 @@ class _$_loading extends _loading {
 }
 
 abstract class _loading extends ConversationDetailState {
-  const factory _loading({final List<ConversationMessage> messages}) =
-      _$_loading;
+  const factory _loading(
+      {final List<ConversationMessage> messages,
+      final String conversationId}) = _$_loading;
   const _loading._() : super._();
 
   @override
   List<ConversationMessage> get messages;
+  @override
+  String get conversationId;
 }
 
 /// @nodoc
@@ -428,8 +568,8 @@ abstract class _loading extends ConversationDetailState {
 class _$_initialized extends _initialized {
   const _$_initialized(
       {required final List<ConversationMessage> messages,
-      this.isSending = false,
-      this.lastMessage})
+      this.conversationId = '',
+      this.isSending = false})
       : _messages = messages,
         super._();
 
@@ -443,9 +583,10 @@ class _$_initialized extends _initialized {
 
   @override
   @JsonKey()
-  final bool isSending;
+  final String conversationId;
   @override
-  final String? lastMessage;
+  @JsonKey()
+  final bool isSending;
 
   @override
   bool operator ==(dynamic other) {
@@ -453,58 +594,66 @@ class _$_initialized extends _initialized {
         (other.runtimeType == runtimeType &&
             other is _$_initialized &&
             const DeepCollectionEquality().equals(other._messages, _messages) &&
+            (identical(other.conversationId, conversationId) ||
+                other.conversationId == conversationId) &&
             (identical(other.isSending, isSending) ||
-                other.isSending == isSending) &&
-            (identical(other.lastMessage, lastMessage) ||
-                other.lastMessage == lastMessage));
+                other.isSending == isSending));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_messages), isSending, lastMessage);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_messages),
+      conversationId,
+      isSending);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<ConversationMessage> messages) loading,
+    required TResult Function(
+            List<ConversationMessage> messages, String conversationId)
+        loading,
     required TResult Function(List<ConversationMessage> messages,
-            bool isSending, String? lastMessage)
+            String conversationId, bool isSending)
         initialized,
     required TResult Function(List<ConversationMessage> messages,
-            String message, String? errorCode)
+            String conversationId, String message, String? errorCode)
         error,
   }) {
-    return initialized(messages, isSending, lastMessage);
+    return initialized(messages, conversationId, isSending);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<ConversationMessage> messages)? loading,
-    TResult? Function(List<ConversationMessage> messages, bool isSending,
-            String? lastMessage)?
+    TResult? Function(
+            List<ConversationMessage> messages, String conversationId)?
+        loading,
+    TResult? Function(List<ConversationMessage> messages, String conversationId,
+            bool isSending)?
         initialized,
-    TResult? Function(List<ConversationMessage> messages, String message,
-            String? errorCode)?
+    TResult? Function(List<ConversationMessage> messages, String conversationId,
+            String message, String? errorCode)?
         error,
   }) {
-    return initialized?.call(messages, isSending, lastMessage);
+    return initialized?.call(messages, conversationId, isSending);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<ConversationMessage> messages)? loading,
-    TResult Function(List<ConversationMessage> messages, bool isSending,
-            String? lastMessage)?
+    TResult Function(List<ConversationMessage> messages, String conversationId)?
+        loading,
+    TResult Function(List<ConversationMessage> messages, String conversationId,
+            bool isSending)?
         initialized,
-    TResult Function(List<ConversationMessage> messages, String message,
-            String? errorCode)?
+    TResult Function(List<ConversationMessage> messages, String conversationId,
+            String message, String? errorCode)?
         error,
     required TResult orElse(),
   }) {
     if (initialized != null) {
-      return initialized(messages, isSending, lastMessage);
+      return initialized(messages, conversationId, isSending);
     }
     return orElse();
   }
@@ -547,14 +696,15 @@ class _$_initialized extends _initialized {
 abstract class _initialized extends ConversationDetailState {
   const factory _initialized(
       {required final List<ConversationMessage> messages,
-      final bool isSending,
-      final String? lastMessage}) = _$_initialized;
+      final String conversationId,
+      final bool isSending}) = _$_initialized;
   const _initialized._() : super._();
 
   @override
   List<ConversationMessage> get messages;
+  @override
+  String get conversationId;
   bool get isSending;
-  String? get lastMessage;
 }
 
 /// @nodoc
@@ -562,6 +712,7 @@ abstract class _initialized extends ConversationDetailState {
 class _$detailsError extends detailsError {
   const _$detailsError(
       {required final List<ConversationMessage> messages,
+      this.conversationId = '',
       this.message = 'Error',
       this.errorCode})
       : _messages = messages,
@@ -577,6 +728,9 @@ class _$detailsError extends detailsError {
 
   @override
   @JsonKey()
+  final String conversationId;
+  @override
+  @JsonKey()
   final String message;
   @override
   final String? errorCode;
@@ -587,57 +741,68 @@ class _$detailsError extends detailsError {
         (other.runtimeType == runtimeType &&
             other is _$detailsError &&
             const DeepCollectionEquality().equals(other._messages, _messages) &&
+            (identical(other.conversationId, conversationId) ||
+                other.conversationId == conversationId) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.errorCode, errorCode) ||
                 other.errorCode == errorCode));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_messages), message, errorCode);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_messages),
+      conversationId,
+      message,
+      errorCode);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<ConversationMessage> messages) loading,
+    required TResult Function(
+            List<ConversationMessage> messages, String conversationId)
+        loading,
     required TResult Function(List<ConversationMessage> messages,
-            bool isSending, String? lastMessage)
+            String conversationId, bool isSending)
         initialized,
     required TResult Function(List<ConversationMessage> messages,
-            String message, String? errorCode)
+            String conversationId, String message, String? errorCode)
         error,
   }) {
-    return error(messages, message, errorCode);
+    return error(messages, conversationId, message, errorCode);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<ConversationMessage> messages)? loading,
-    TResult? Function(List<ConversationMessage> messages, bool isSending,
-            String? lastMessage)?
+    TResult? Function(
+            List<ConversationMessage> messages, String conversationId)?
+        loading,
+    TResult? Function(List<ConversationMessage> messages, String conversationId,
+            bool isSending)?
         initialized,
-    TResult? Function(List<ConversationMessage> messages, String message,
-            String? errorCode)?
+    TResult? Function(List<ConversationMessage> messages, String conversationId,
+            String message, String? errorCode)?
         error,
   }) {
-    return error?.call(messages, message, errorCode);
+    return error?.call(messages, conversationId, message, errorCode);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<ConversationMessage> messages)? loading,
-    TResult Function(List<ConversationMessage> messages, bool isSending,
-            String? lastMessage)?
+    TResult Function(List<ConversationMessage> messages, String conversationId)?
+        loading,
+    TResult Function(List<ConversationMessage> messages, String conversationId,
+            bool isSending)?
         initialized,
-    TResult Function(List<ConversationMessage> messages, String message,
-            String? errorCode)?
+    TResult Function(List<ConversationMessage> messages, String conversationId,
+            String message, String? errorCode)?
         error,
     required TResult orElse(),
   }) {
     if (error != null) {
-      return error(messages, message, errorCode);
+      return error(messages, conversationId, message, errorCode);
     }
     return orElse();
   }
@@ -680,12 +845,15 @@ class _$detailsError extends detailsError {
 abstract class detailsError extends ConversationDetailState {
   const factory detailsError(
       {required final List<ConversationMessage> messages,
+      final String conversationId,
       final String message,
       final String? errorCode}) = _$detailsError;
   const detailsError._() : super._();
 
   @override
   List<ConversationMessage> get messages;
+  @override
+  String get conversationId;
   String get message;
   String? get errorCode;
 }

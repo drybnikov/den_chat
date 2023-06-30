@@ -79,10 +79,10 @@ class _ConversationDetailsBodyState extends State<ConversationDetailsBody> {
                 message: error.message,
                 errorCode: error.errorCode,
               )
-            : ConversationMessagesWidget(messages: state.messages),
+            : ConversationMessagesWidget(state.messages),
         orElse: () => AnimatedSwitcher(
           duration: const Duration(milliseconds: 300),
-          child: ConversationMessagesWidget(messages: state.messages),
+          child: ConversationMessagesWidget(state.messages),
         ),
       ),
     );
