@@ -85,40 +85,41 @@ class ConversationDetailBloc
   FutureOr<void> _onSendMessage(_sendMessage event, emit) async {
     emit(_initialized(messages: state.messages, isSending: true));
 
-    final messages = state.messages.toList();
-    final nextId = (int.tryParse(messages.last.id) ?? 0) + 1;
-    final message = ConversationMessage(
-      id: nextId.toString(),
-      message: event.message,
-      modified: DateTime.now().microsecondsSinceEpoch,
-      sender: 'me',
+    final delay = random.nextInt(300);
+    await _sendAnswerMessage(
+      'me',
+      event.message,
+      delay,
+      emit,
     );
 
-    final delay = random.nextInt(500);
-    await Future.delayed(Duration(milliseconds: delay));
-
-    messages.add(message);
-    emit(_initialized(
-      messages: messages,
-      isSending: false,
-    ));
-
-    await _sendAnswerMessage(emit);
+    await _sendRandomAnswer(emit);
   }
 
-  FutureOr<void> _sendAnswerMessage(emit) async {
+  FutureOr<void> _sendRandomAnswer(emit) async {
+    final senderName = state.messages.first.sender;
+
+    final delay = random.nextInt(2000);
+    await _sendAnswerMessage(
+      senderName,
+      messageAnswers[random.nextInt(messageAnswers.length)],
+      delay,
+      emit,
+    );
+  }
+
+  FutureOr<void> _sendAnswerMessage(
+      String sender, String messageText, int delay, emit) async {
     final messages = state.messages.toList();
     final nextId = (int.tryParse(messages.last.id) ?? 0) + 1;
-    final senderName = state.messages.first.sender;
 
     final message = ConversationMessage(
       id: nextId.toString(),
-      message: messageAnswers[random.nextInt(messageAnswers.length)],
+      message: messageText,
       modified: DateTime.now().microsecondsSinceEpoch,
-      sender: senderName,
+      sender: sender,
     );
 
-    final delay = random.nextInt(2000);
     await Future.delayed(Duration(milliseconds: delay));
 
     messages.add(message);
@@ -141,4 +142,10 @@ const List<String> messageAnswers = [
   'Give me a minute',
   'I\'m busy',
   'I\'m not busy',
+  'Can we watch a movie?',
+  'I want to go to the cinema',
+  'Tomorrow it will rain',
+  'I have some plans',
+  'I have to go',
+  'She says she\'s not going',
 ];

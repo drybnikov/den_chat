@@ -37,15 +37,16 @@ class _SendMessageWidgetState extends State<SendMessageWidget> {
                         border: InputBorder.none,
                         prefixIcon: Icon(Icons.edit_note),
                       ),
-                      onChanged: (value) => _message = value,
+                      onChanged: (value) => setState(() => _message = value),
                     ),
                   ),
                 ),
               ),
               const SizedBox(width: 8),
               ActionChip(
-                onPressed:
-                    state.isSending ? null : () => _onSendAction(context),
+                onPressed: state.isSending || _messageController.text.isEmpty
+                    ? null
+                    : () => _onSendAction(context),
                 label: const Text('Send'),
               ),
             ],
@@ -57,10 +58,13 @@ class _SendMessageWidgetState extends State<SendMessageWidget> {
 
   void _onSendAction(BuildContext context) {
     FocusScope.of(context).unfocus();
-    _messageController.text = '';
 
     context
         .read<ConversationDetailBloc>()
         .add(ConversationDetailEvent.sendMessage(_message));
+    setState(() {
+      _messageController.text = '';
+      _message = '';
+    });
   }
 }
