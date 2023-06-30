@@ -19,7 +19,7 @@ abstract class RestClientPublic {
 
   /// Get latest conversations list
   @GET('/inbox.json')
-  Future<List<Conversation>> getConversations();
+  Future<String> getConversations();
 
   /// Get selected conversation details
   @GET('/{id}.json')

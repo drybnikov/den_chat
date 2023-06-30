@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:den_chat/model/conversation/conversation_response.dart';
 import 'package:den_chat/network/rest_client_public.dart';
 import 'package:den_chat/repository/conversation_repository.dart';
@@ -13,7 +15,11 @@ class ConversationRepositoryImpl implements ConversationRepository {
   @override
   Future<List<Conversation>> fetchConversations() async {
     try {
-      return _restClient.getConversations();
+      final response = await _restClient.getConversations();
+      final jsonData = json.decode(response.replaceFirst(',]', ']'));
+      return jsonData
+          .map<Conversation>((e) => Conversation.fromJson(e))
+          .toList();
     } on Exception catch (ex, st) {
       Fimber.e('Error when load conversations', ex: ex, stacktrace: st);
       rethrow;

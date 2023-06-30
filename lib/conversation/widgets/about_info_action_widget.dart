@@ -9,7 +9,6 @@ class AboutInfoActionWidget extends StatelessWidget {
         onPressed: () => showAboutDialog(
           context: context,
           applicationIcon: const FlutterLogo(),
-          applicationVersion: 'March 2023',
           applicationLegalese: '\u{a9} 2023 By Denis Rybnikov',
         ),
         icon: const Icon(CupertinoIcons.info),

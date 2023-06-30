@@ -11,7 +11,7 @@ class Conversation extends Equatable {
   @JsonKey(name: 'last_message')
   final String? lastMessage;
   @JsonKey(name: 'modified_at')
-  final DateTime? modified;
+  final int? modified;
 
   final List<String> members;
 

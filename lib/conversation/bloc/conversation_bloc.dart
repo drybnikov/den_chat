@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:den_chat/model/conversation/conversation_response.dart';
 import 'package:den_chat/repository/conversation_repository.dart';
+import 'package:dio/dio.dart';
 import 'package:fimber/fimber.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -55,11 +56,20 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
 
       emit(_initialized(conversations: conversationsResult));
     } on Object catch (error, st) {
-      Fimber.e('Error when load conversations', ex: error, stacktrace: st);
-      emit(conversationsError(
-        message: error.toString(),
-        conversations: state.conversations,
-      ));
+      Fimber.e('Error when load characters', ex: error, stacktrace: st);
+      if (error is DioError) {
+        emit(conversationsError(
+          message: error.response?.data.toString() ?? error.message,
+          errorCode: error.type.name,
+          conversations:
+              error.response?.statusCode == 404 ? [] : state.conversations,
+        ));
+      } else {
+        emit(conversationsError(
+          message: error.toString(),
+          conversations: state.conversations,
+        ));
+      }
     }
   }
 
