@@ -1,3 +1,5 @@
+import 'package:den_chat/conversation/conversation_details_screen.dart';
+import 'package:den_chat/conversation/widgets/member_avatar_widget.dart';
 import 'package:den_chat/model/conversation/conversation_response.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -38,7 +40,8 @@ class _ConversationListItem extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.all(8),
       child: InkWell(
-        onTap: () => {},
+        onTap: () => Navigator.of(context)
+            .pushNamed(ConversationDetailsScreen.path, arguments: listItem),
         borderRadius: BorderRadius.circular(12),
         child: Padding(
           padding: const EdgeInsets.all(8),
@@ -102,28 +105,10 @@ class _MembersListWidget extends StatelessWidget {
 
           return Padding(
             padding: const EdgeInsets.only(left: 4),
-            child: _MemberAvatar(member: member),
+            child: MemberAvatar(member: member),
           );
         },
         itemCount: members.length,
-      ),
-    );
-  }
-}
-
-class _MemberAvatar extends StatelessWidget {
-  final String member;
-
-  const _MemberAvatar({required this.member});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 32,
-      height: 32,
-      child: CircleAvatar(
-        backgroundColor: Color(member.hashCode + 0x5500FF33),
-        child: Text(member.substring(0, 2)),
       ),
     );
   }

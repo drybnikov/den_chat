@@ -1,4 +1,5 @@
 import 'package:den_chat/conversation/bloc/conversation_bloc.dart';
+import 'package:den_chat/conversation/bloc/conversation_details_bloc.dart';
 import 'package:den_chat/conversation/conversation_details_screen.dart';
 import 'package:den_chat/conversation/conversations_list_screen.dart';
 import 'package:den_chat/di/injection_container.dart';
@@ -25,6 +26,9 @@ class RootNavigatorWidget extends StatelessWidget {
         BlocProvider(
           create: (context) => getIt.get<ConversationBloc>()
             ..add(const ConversationEvent.fetchLastConversations()),
+        ),
+        BlocProvider(
+          create: (context) => getIt.get<ConversationDetailBloc>(),
         ),
       ],
       child: WillPopScope(

@@ -13,6 +13,7 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
 import '../conversation/bloc/conversation_bloc.dart' as _i7;
+import '../conversation/bloc/conversation_details_bloc.dart' as _i8;
 import '../network/client_provider.dart' as _i3;
 import '../network/repository/conversation_repository_impl.dart' as _i6;
 import '../network/rest_client_public.dart' as _i4;
@@ -36,6 +37,8 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i6.ConversationRepositoryImpl(gh<_i4.RestClientPublic>()));
     gh.factory<_i7.ConversationBloc>(
         () => _i7.ConversationBloc(gh<_i5.ConversationRepository>()));
+    gh.factory<_i8.ConversationDetailBloc>(
+        () => _i8.ConversationDetailBloc(gh<_i5.ConversationRepository>()));
     return this;
   }
 }

@@ -1,4 +1,3 @@
-import 'package:den_chat/model/conversation/conversation_response.dart';
 import 'package:den_chat/network/client_provider.dart';
 import 'package:dio/dio.dart' hide Headers;
 import 'package:injectable/injectable.dart';
@@ -23,7 +22,7 @@ abstract class RestClientPublic {
 
   /// Get selected conversation details
   @GET('/{id}.json')
-  Future<Conversation> getConversationDetails(
+  Future<String> getConversationMessages(
     @Path() String id,
   );
 }

@@ -2,6 +2,7 @@ import 'package:den_chat/conversation/bloc/conversation_bloc.dart';
 import 'package:den_chat/conversation/network_error.dart';
 import 'package:den_chat/conversation/widgets/about_info_action_widget.dart';
 import 'package:den_chat/conversation/widgets/conversations_list_widget.dart';
+import 'package:den_chat/conversation/widgets/send_message_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,6 +25,15 @@ class ConversationsListScreen extends StatelessWidget {
         ],
       ),
       body: const _PhotosListBody(),
+      bottomNavigationBar: Container(
+        color: Colors.black26,
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+          top: 16,
+          right: 16,
+        ),
+        child: const SendMessageWidget(),
+      ),
     );
   }
 }
@@ -35,7 +45,7 @@ class _PhotosListBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ConversationBloc, ConversationState>(
       builder: (context, state) => state.maybeMap(
-        loading: (_) => const _ListLoading(),
+        loading: (_) => const ListLoading(),
         error: (error) => error.conversations.isEmpty
             ? NetworkErrorWidget(
                 message: error.message,
@@ -51,8 +61,8 @@ class _PhotosListBody extends StatelessWidget {
   }
 }
 
-class _ListLoading extends StatelessWidget {
-  const _ListLoading({Key? key}) : super(key: key);
+class ListLoading extends StatelessWidget {
+  const ListLoading({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

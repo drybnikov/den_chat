@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:den_chat/model/conversation/conversation_message_response.dart';
 import 'package:den_chat/model/conversation/conversation_response.dart';
 import 'package:den_chat/network/rest_client_public.dart';
 import 'package:den_chat/repository/conversation_repository.dart';
@@ -16,7 +17,8 @@ class ConversationRepositoryImpl implements ConversationRepository {
   Future<List<Conversation>> fetchConversations() async {
     try {
       final response = await _restClient.getConversations();
-      final jsonData = json.decode(response.replaceFirst(',]', ']'));
+      final jsonData = json.decode(response.normalizeJsonString);
+
       return jsonData
           .map<Conversation>((e) => Conversation.fromJson(e))
           .toList();
@@ -25,4 +27,18 @@ class ConversationRepositoryImpl implements ConversationRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<List<ConversationMessage>> fetchConversationMessages(String id) async {
+    final response = await _restClient.getConversationMessages(id);
+    final jsonData = json.decode(response.normalizeJsonString);
+
+    return jsonData
+        .map<ConversationMessage>((e) => ConversationMessage.fromJson(e))
+        .toList();
+  }
+}
+
+extension JsonNormalizer on String {
+  String get normalizeJsonString => replaceFirst(',]', ']');
 }
