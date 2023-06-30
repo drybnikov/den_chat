@@ -113,7 +113,7 @@ class _MessageListItem extends StatelessWidget {
                       Text(
                         listItem.message,
                         maxLines: 5,
-                        style: Theme.of(context).textTheme.caption,
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       const SizedBox(height: 4),
                       Align(
@@ -159,7 +159,7 @@ class _MyMessageListItem extends StatelessWidget {
                       Text(
                         listItem.message,
                         maxLines: 5,
-                        style: Theme.of(context).textTheme.caption,
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       const SizedBox(height: 4),
                       Align(

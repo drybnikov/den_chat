@@ -55,7 +55,7 @@ class _ConversationListItem extends StatelessWidget {
                     child: Text(
                       listItem.topic,
                       maxLines: 1,
-                      style: Theme.of(context).textTheme.subtitle1,
+                      style: Theme.of(context).textTheme.titleMedium,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
@@ -76,7 +76,7 @@ class _ConversationListItem extends StatelessWidget {
                   listItem.lastMessage ?? '',
                   style: Theme.of(context)
                       .textTheme
-                      .caption!
+                      .bodyMedium!
                       .copyWith(color: Theme.of(context).colorScheme.primary),
                 ),
               ),
