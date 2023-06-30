@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:den_chat/model/conversation/conversation_message_response.dart';
 import 'package:den_chat/model/conversation/conversation_response.dart';
@@ -12,6 +13,7 @@ import 'package:injectable/injectable.dart';
 class ConversationRepositoryImpl implements ConversationRepository {
   final RestClientPublic _restClient;
   final ConversationDataStorage _conversationDataStorage;
+  final Random random = Random();
 
   ConversationRepositoryImpl(this._restClient, this._conversationDataStorage);
 
@@ -58,13 +60,50 @@ class ConversationRepositoryImpl implements ConversationRepository {
     return messagesList;
   }
 
+  @override
   Future<ConversationMessage> sendMessage(
-      {required String message, required String id}) {
-    // TODO: implement sendMessage
-    throw UnimplementedError();
+      {required String messageText, required String conversationId}) async {
+    await Future.delayed(Duration(milliseconds: random.nextInt(300)));
+    await _conversationDataStorage.sendMessage(
+        messageText: messageText, conversationId: conversationId, sender: 'me');
+
+    await Future.delayed(Duration(milliseconds: random.nextInt(2000)));
+
+    return await _sendRandomAnswer(conversationId);
+  }
+
+  Future<ConversationMessage> _sendRandomAnswer(String conversationId) async {
+    final storedMessages =
+        _conversationDataStorage.getConversationMessages(conversationId);
+    final senderName = storedMessages.first.sender;
+
+    return await _conversationDataStorage.sendMessage(
+        messageText: _messageAnswers[random.nextInt(_messageAnswers.length)],
+        conversationId: conversationId,
+        sender: senderName);
   }
 }
 
 extension JsonNormalizer on String {
   String get normalizeJsonString => replaceFirst(',]', ']');
 }
+
+const List<String> _messageAnswers = [
+  'Yes',
+  'No',
+  'Maybe',
+  'I don\'t know',
+  'I\'m not sure',
+  'I\'m sure',
+  'What do you think?',
+  'Why?',
+  'Give me a minute',
+  'I\'m busy',
+  'I\'m not busy',
+  'Can we watch a movie?',
+  'I want to go to the cinema',
+  'Tomorrow it will rain',
+  'I have some plans',
+  'I have to go',
+  'She says she\'s not going',
+];

@@ -122,43 +122,9 @@ class ConversationDetailBloc
       isSending: true,
     ));
 
-    await Future.delayed(Duration(milliseconds: random.nextInt(300)));
-    await _conversationDataStorage.sendMessage(
-        messageText: event.message,
-        conversationId: conversationId,
-        sender: 'me');
-
-    await Future.delayed(Duration(milliseconds: random.nextInt(2000)));
-
-    await _sendRandomAnswer();
-  }
-
-  FutureOr<void> _sendRandomAnswer() async {
-    final senderName = state.messages.first.sender;
-
-    await _conversationDataStorage.sendMessage(
-        messageText: messageAnswers[random.nextInt(messageAnswers.length)],
-        conversationId: state.conversationId,
-        sender: senderName);
+    await _conversationRepository.sendMessage(
+      messageText: event.message,
+      conversationId: conversationId,
+    );
   }
 }
-
-const List<String> messageAnswers = [
-  'Yes',
-  'No',
-  'Maybe',
-  'I don\'t know',
-  'I\'m not sure',
-  'I\'m sure',
-  'What do you think?',
-  'Why?',
-  'Give me a minute',
-  'I\'m busy',
-  'I\'m not busy',
-  'Can we watch a movie?',
-  'I want to go to the cinema',
-  'Tomorrow it will rain',
-  'I have some plans',
-  'I have to go',
-  'She says she\'s not going',
-];
