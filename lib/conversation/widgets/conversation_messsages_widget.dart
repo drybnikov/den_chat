@@ -1,5 +1,4 @@
 import 'package:den_chat/model/conversation/conversation_message_response.dart';
-import 'package:fimber/fimber.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
@@ -32,16 +31,12 @@ class _ConversationMessagesWidgetState
           Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
       axis: Axis.vertical,
     );
-    Fimber.d(
-        'initState initialScrollOffset: ${controller.initialScrollOffset}');
 
     super.initState();
   }
 
   @override
   void didUpdateWidget(covariant ConversationMessagesWidget oldWidget) {
-    Fimber.d(
-        'didUpdateWidget initialScrollOffset: ${controller.initialScrollOffset}');
     if (widget.messages.length > oldWidget.messages.length) {
       controller.scrollToIndex(widget.messages.length,
           duration: const Duration(seconds: 1));
@@ -72,13 +67,15 @@ class _ConversationMessagesWidgetState
           delegate: SliverChildBuilderDelegate(
             (BuildContext context, int index) {
               final listItem = widget.messages[index];
-              Fimber.d('Build index: $index, listItem: ${listItem.message}');
 
               return AutoScrollTag(
-                  index: index,
-                  key: ValueKey(index),
-                  controller: controller,
-                  child: _MessageListItem(listItem: listItem));
+                index: index,
+                key: ValueKey(index),
+                controller: controller,
+                child: listItem.sender == 'me'
+                    ? _MyMessageListItem(listItem: listItem)
+                    : _MessageListItem(listItem: listItem),
+              );
             },
             childCount: widget.messages.length,
           ),
@@ -98,7 +95,6 @@ class _MessageListItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8),
       child: Row(
-        mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -106,7 +102,8 @@ class _MessageListItem extends StatelessWidget {
           Expanded(
               flex: 5,
               child: Card(
-                elevation: 10,
+                elevation: 3,
+                color: Theme.of(context).scaffoldBackgroundColor,
                 margin: const EdgeInsets.all(8),
                 child: Padding(
                   padding: const EdgeInsets.all(8),
@@ -128,6 +125,52 @@ class _MessageListItem extends StatelessWidget {
                 ),
               )),
           const Expanded(child: SizedBox(width: 10)),
+        ],
+      ),
+    );
+  }
+}
+
+class _MyMessageListItem extends StatelessWidget {
+  final ConversationMessage listItem;
+
+  const _MyMessageListItem({Key? key, required this.listItem})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          const Spacer(flex: 1),
+          Expanded(
+            flex: 2,
+            child: Card(
+              elevation: 10,
+              margin: const EdgeInsets.all(8),
+              child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        listItem.message,
+                        maxLines: 5,
+                        style: Theme.of(context).textTheme.caption,
+                      ),
+                      const SizedBox(height: 4),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: _ModifiedDate(modified: listItem.modified),
+                      ),
+                    ],
+                  )),
+            ),
+          ),
+          MemberAvatar(member: listItem.sender),
         ],
       ),
     );
